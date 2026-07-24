@@ -2,6 +2,31 @@ from cProfile import label
 from tkinter import *
 from tkinter import messagebox
 
+# ------------------------------------------
+# Funciones de la app
+#-------------------------------------------
+def salir():
+    messagebox.showinfo("Suma 1.0", "Hiso clic en el boton salir...")
+    ventana_principal.destroy()
+
+def borar():
+    messagebox.showinfo("Suma 1.0 los datos seran borrados...")
+    x.set("")
+    y.set("")
+    t_resultados.delete("1.0", "end")
+    
+def sumar():
+    messagebox.showinfo(" suma 1,0","hizo clik en el boton de sumar...")
+    z = int(x.get()) + int(y.get()) 
+    t_resultados.insert(INSERT, " la suma de " + x.get() + " + " + y.get() + "casi siempre es " + str(z) + "\n")
+
+
+
+#---------------------------------------    
+# configuración de la pantalla principal
+#--------------------------
+
+
 # Ventana principal de la desktop app
 ventana_principal = Tk()
 
@@ -16,6 +41,12 @@ ventana_principal.config(bg="black")
 
 # deshabilitar boton de maximizar
 ventana_principal.resizable(0,0)
+
+#---------------------------------
+# variables globales de la app
+# ---------------------------------
+x = IntVar()
+y = IntVar()
 
 # ------------------------------------------
 # Frame entrada de datos
@@ -40,7 +71,7 @@ lb_x.config(bg="yellow", fg="blue", font=("ARIAL",16))
 lb_x.place(x=180, y=80)                                                                                                         
 
 lb_y= Label(frame_entrada, text="y =")
-lb_y.config(bg="yellow", fg="blue", font=("ARIAL",16))
+lb_y.config(bg="yellow", fg="blue", font=("ARIAL",16)) 
 lb_y.place(x=180, y=120)
 
 
@@ -66,15 +97,15 @@ frame_operaciones.config(bg="green", width=480, height=120)
 frame_operaciones.place(x=10,y=260)
 
 # boton para sumar
-bt_sumar = Button(frame_operaciones, text="Sumar", command="sumar")
+bt_sumar = Button(frame_operaciones, text="Sumar", command=sumar)
 bt_sumar.place(x=45,y =45, width=100, height=30)
 
 # boton para borrar
-bt_borrar = Button(frame_operaciones, text="Borrar", command="borrar")
+bt_borrar = Button(frame_operaciones, text="Borrar", command=borar)
 bt_borrar.place(x=190,y =45, width=100, height=30)
 
 # boton para salir
-bt_salir = Button(frame_operaciones, text="Salir", command="salir")
+bt_salir = Button(frame_operaciones, text="Salir", command=salir)
 bt_salir.place(x=330,y =45, width=100, height=30)
 
 
@@ -85,6 +116,11 @@ bt_salir.place(x=330,y =45, width=100, height=30)
 frame_resultados = Frame(ventana_principal)
 frame_resultados.config(bg="green", width=480, height=100)
 frame_resultados.place(x=10,y=390)
+
+# area de texto para mostrar resultados
+t_resultados = Text(frame_resultados)
+t_resultados.config(bg="yellow", fg="black", font=("ARIAL",20))
+t_resultados.place(x=10, y=10, width=460, height=80)
 
 # bucle principal
 ventana_principal.mainloop()  
